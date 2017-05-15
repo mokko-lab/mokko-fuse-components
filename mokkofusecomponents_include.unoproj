@@ -1,10 +1,9 @@
 {
-  "RootNamespace":"Mokko",
   "Packages": [
     "Fuse",
     "FuseJS"
   ],
   "Includes": [
-    "Components/*"
+    "./Components/*"
   ]
 }
