@@ -1,0 +1,35 @@
+<ux:Resources>
+    <Panel ux:Class="mokko.SmartButton" HitTestMode="LocalBoundsAndChildren" Height="44" BGColor="Black" TextColor="White" ClickDelay="1" IsBusy="false" AutomaticDelay="true" Text="Button">
+
+        <string ux:Property="Text"/>
+        <float4 ux:Property="BGColor"/>
+        <float4 ux:Property="TextColor"/>
+        <float ux:Property="ClickDelay"/>
+        <bool ux:Property="IsBusy"/>
+        <bool ux:Property="AutomaticDelay"/>
+
+        <Rectangle ux:Name="BG" Color="{Property BGColor}">
+            <Text Font="Medium" ux:Name="ButtonText" Value="{Property Text}" Color="{Property TextColor}" Alignment="Center"/>
+            <Circle Smoothness="1" SnapToPixels="true" ux:Name="RotatingStroke" Margin="10" Opacity="0" Height="100%" MaxHeight="40" StartAngleDegrees="-45" EndAngleDegrees="200">
+                <Stroke Width="2" Color="{Property TextColor}"/>
+            </Circle>
+        </Rectangle>
+        <WhileTrue Value="{Property AutomaticDelay}">
+            <Clicked>
+                <Set this.IsBusy="false" Delay="{Property ClickDelay}"/>
+                <Set this.IsBusy="true"/>
+            </Clicked>
+        </WhileTrue>
+        <WhileTrue Value="{Property IsBusy}">
+            <Change ButtonText.Opacity="0" />
+            <Change RotatingStroke.Opacity="1" Duration="0.2" />
+            <Change this.IsEnabled="false" />
+            <Spin Target="RotatingStroke" Frequency="2"/>
+        </WhileTrue>
+        <WhileFalse Value="{Property IsBusy}">
+            <WhileDisabled>
+                <Change BG.Color="#AAA" Duration="0.2"/>
+            </WhileDisabled>
+        </WhileFalse>
+    </Panel>
+</ux:Resources>
